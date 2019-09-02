@@ -3,8 +3,9 @@
 <h1>Aplicação</h1>
 
 <p>A aplicação que iremos dar início ao desenvolvimento a partir de agora é um app agregador de eventos para desenvolvedores chamado Meetapp (um acrônimo à Meetup + App).</p>
-<hr>
+
 # Iniciando aplicação
+
 <hr>
 
 <h3>Autenticação</h3>
