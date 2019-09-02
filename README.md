@@ -6,8 +6,6 @@
 
 # Iniciando aplicação
 
-<hr>
-
 <h3>Autenticação</h3>
 
 > Permita que um usuário se autentique em sua aplicação utilizando e-mail e senha.
