@@ -25,7 +25,7 @@
 
 <h3>Gerenciamento de arquivos</h3>
 
-- [ ] Criar uma rota para upload de arquivos que cadastra em uma tabela o caminho e nome do arquivo e retorna todos dados do arquivo cadastrado.
+- [x] Criar uma rota para upload de arquivos que cadastra em uma tabela o caminho e nome do arquivo e retorna todos dados do arquivo cadastrado.
 
 <h3>Gerenciamento de meetups</h3>
 
