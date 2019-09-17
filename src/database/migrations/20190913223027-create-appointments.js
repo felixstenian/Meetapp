@@ -7,16 +7,35 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true
       },
-      date: {
-        allowNull: false,
-        type: Sequelize.DATE
+      file_id: {
+        type: Sequelize.INTEGER,
+        references: { model: "files", key: "id" },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+        allowNull: false
       },
       user_id: {
         type: Sequelize.INTEGER,
         references: { model: "users", key: "id" },
         onUpdate: "CASCADE",
-        onDelete: "SET NULL",
+        onDelete: "CASCADE",
         allowNull: true
+      },
+      titile: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      description: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      location: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      date: {
+        allowNull: false,
+        type: Sequelize.DATE
       },
       canceled_at: {
         type: Sequelize.DATE
