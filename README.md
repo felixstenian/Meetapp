@@ -29,7 +29,7 @@
 
 <h3>Gerenciamento de meetups</h3>
 
-- [ ] O usuário pode cadastrar meetups na plataforma com título do meetup, descrição, localização, data e hora e imagem (banner). Todos campos são obrigatórios. Adicione também um campo user_id que armazena o ID do usuário que organiza o evento.
+- [x] O usuário pode cadastrar meetups na plataforma com título do meetup, descrição, localização, data e hora e imagem (banner). Todos campos são obrigatórios. Adicione também um campo user_id que armazena o ID do usuário que organiza o evento.
 - [ ] Não deve ser possível cadastrar meetups com datas que já passaram.
 - [ ] O usuário também deve poder editar todos dados de meetups que ainda não aconteceram e que ele é organizador.
 - [ ] Crie uma rota para listar os meetups que são organizados pelo usuário logado.
