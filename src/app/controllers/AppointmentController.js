@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import { parseISO, isBefore } from "date-fns";
+import { startOfHour, parseISO, isBefore } from "date-fns";
 import Appointment from "../models/Appointment";
 import File from "../models/File";
 
@@ -35,7 +35,7 @@ class AppointmentController {
 
     const user_id = req.userId;
 
-    const hourStart = parseISO(req.body.date);
+    const hourStart = startOfHour(parseISO(req.body.date));
 
     /**
      * Check for past date
@@ -62,6 +62,44 @@ class AppointmentController {
       ...req.body,
       user_id
     });
+
+    return res.json(appointment);
+  }
+
+  async update(req, res) {
+    const schema = Yup.object().shape({
+      title: Yup.string().required(),
+      file_id: Yup.number().required(),
+      description: Yup.string().required(),
+      location: Yup.string().required(),
+      date: Yup.date().required()
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: "Validation fails" });
+    }
+
+    const user_id = req.userId;
+
+    const appointment = await Appointment.findByPk(req.params.id);
+
+    if (appointment.user_id !== user_id) {
+      return res.status(401).json({ error: "Not authorized." });
+    }
+
+    if (isBefore(parseISO(req.body.date), new Date())) {
+      return res
+        .status(400)
+        .json({ error: "Meetapp appointment date invalid" });
+    }
+
+    if (appointment.past) {
+      return res
+        .status(400)
+        .json({ error: "Can't update past meetapp appointment" });
+    }
+
+    await appointment.update(req.body);
 
     return res.json(appointment);
   }
