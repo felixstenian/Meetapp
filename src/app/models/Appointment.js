@@ -7,7 +7,8 @@ class Appointment extends Model {
         title: Sequelize.STRING,
         description: Sequelize.STRING,
         location: Sequelize.STRING,
-        date: Sequelize.DATE
+        date: Sequelize.DATE,
+        canceled_at: Sequelize.DATE
       },
       {
         sequelize
