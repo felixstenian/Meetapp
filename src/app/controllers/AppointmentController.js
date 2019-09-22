@@ -1,12 +1,12 @@
 import * as Yup from "yup";
-import { startOfHour, parseISO, isBefore } from "date-fns";
+import { startOfHour, parseISO, isBefore, subHours } from "date-fns";
 import Appointment from "../models/Appointment";
 import File from "../models/File";
 
 class AppointmentController {
   async index(req, res) {
     const appointments = await Appointment.findAll({
-      where: { user_id: req.userId },
+      where: { user_id: req.userId, canceled_at: null },
       order: ["date"],
       attributes: ["id", "title", "description", "location", "date"],
       include: [
@@ -100,6 +100,28 @@ class AppointmentController {
     }
 
     await appointment.update(req.body);
+
+    return res.json(appointment);
+  }
+
+  async delete(req, res) {
+    const appointment = await Appointment.findByPk(req.params.id);
+
+    if (appointment.user_id !== req.userId) {
+      return res
+        .status(401)
+        .json({ error: "You don't have permission to cancel thie meetapp." });
+    }
+
+    const dateWithSub = subHours(appointment.date, 2);
+
+    if (isBefore(dateWithSub, new Date())) {
+      return res
+        .status(401)
+        .json({ error: "You can only cancel meetapp 2 hours in advance." });
+    }
+
+    await appointment.destroy();
 
     return res.json(appointment);
   }
