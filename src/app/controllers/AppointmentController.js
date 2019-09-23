@@ -79,27 +79,19 @@ class AppointmentController {
       return res.status(400).json({ error: "Validation fails" });
     }
 
-    const user_id = req.userId;
-
     const appointment = await Appointment.findByPk(req.params.id);
 
-    if (appointment.user_id !== user_id) {
+    if (appointment.user_id !== req.userId) {
       return res.status(401).json({ error: "Not authorized." });
     }
 
-    if (isBefore(parseISO(req.body.date), new Date())) {
-      return res
-        .status(400)
-        .json({ error: "Meetapp appointment date invalid" });
+    if (isBefore(appointment.date, new Date())) {
+      return res.status(400).json({ error: "Past dates are not permited." });
     }
 
-    if (appointment.past) {
-      return res
-        .status(400)
-        .json({ error: "Can't update past meetapp appointment" });
-    }
-
-    await appointment.update(req.body);
+    await appointment.update({
+      ...req.body
+    });
 
     return res.json(appointment);
   }
