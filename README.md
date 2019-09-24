@@ -40,7 +40,7 @@
 - [x] O usuário deve poder se inscrever em meetups que não organiza.
 - [x] O usuário não pode se inscrever em meetups que já aconteceram.
 - [x] O usuário não pode se inscrever no mesmo meetup duas vezes.
-- [ ] O usuário não pode se inscrever em dois meetups que acontecem no mesmo horário.
+- [x] O usuário não pode se inscrever em dois meetups que acontecem no mesmo horário.
 - [ ] Sempre que um usuário se inscrever no meetup, envie um e-mail ao organizador contendo os dados relacionados ao usuário inscrito. O template do e-mail fica por sua conta :)
 
 <h3>Listagem de meetups</h3>
