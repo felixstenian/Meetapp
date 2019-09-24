@@ -6,6 +6,7 @@ import UserController from "./app/controllers/UserController";
 import SessionController from "./app/controllers/SessionController";
 import FileController from "./app/controllers/FileController";
 import AppointmentController from "./app/controllers/AppointmentController";
+import SubscriptionController from "./app/controllers/SubscriptionController";
 
 import authMiddleware from "./app/middlewares/auth";
 
@@ -25,5 +26,10 @@ routes.get("/appointments", AppointmentController.index);
 routes.post("/appointments", AppointmentController.store);
 routes.put("/appointments/:id", AppointmentController.update);
 routes.delete("/appointments/:id", AppointmentController.delete);
+
+routes.post(
+  "/appointments/:appointmentId/subscriptions",
+  SubscriptionController.store
+);
 
 export default routes;
