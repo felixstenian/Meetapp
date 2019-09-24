@@ -5,7 +5,7 @@ import User from "../models/User";
 
 class SubscriptionController {
   async store(req, res) {
-    const user = await User.findByPk(req.userID);
+    const user = await User.findByPk(req.userId);
     const appointment = await Appointment.findByPk(req.params.appointmentId, {
       include: [User]
     });
@@ -22,7 +22,33 @@ class SubscriptionController {
         .json({ error: "Can't subscribe to past meetups !" });
     }
 
-    return res.json({ ok: true });
+    const checkSubscription = await Subscription.findOne({
+      where: {
+        user_id: user.id
+      },
+      include: [
+        {
+          model: Appointment,
+          required: true,
+          where: {
+            date: appointment.date
+          }
+        }
+      ]
+    });
+
+    if (checkSubscription) {
+      return res
+        .status(400)
+        .json({ error: "Can't not subscribe two meetaps in the same time !" });
+    }
+
+    const subscription = await Subscription.create({
+      user_id: user.id,
+      appointment_id: appointment.id
+    });
+
+    return res.json(subscription);
   }
 }
 
