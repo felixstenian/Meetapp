@@ -37,7 +37,7 @@
 
 <h3>Inscrição no meetup</h3>
 
-- [ ] O usuário deve poder se inscrever em meetups que não organiza.
+- [x] O usuário deve poder se inscrever em meetups que não organiza.
 - [ ] O usuário não pode se inscrever em meetups que já aconteceram.
 - [ ] O usuário não pode se inscrever no mesmo meetup duas vezes.
 - [ ] O usuário não pode se inscrever em dois meetups que acontecem no mesmo horário.
