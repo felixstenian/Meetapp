@@ -19,8 +19,11 @@ class Appointment extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.File, { foreignKey: "file_id", as: "file" });
-    this.belongsTo(models.User, { foreignKey: "user_id", as: "user" });
+    this.hasMany(models.Subscription, {
+      foreignKey: "appointment_id"
+    });
+    this.belongsTo(models.File, { foreignKey: "file_id" });
+    this.belongsTo(models.User, { foreignKey: "user_id" });
   }
 }
 
