@@ -1,22 +1,37 @@
 import * as Yup from "yup";
-import { startOfHour, parseISO, isBefore, subHours } from "date-fns";
+import {
+  startOfHour,
+  parseISO,
+  isBefore,
+  subHours,
+  startOfDay,
+  endOfDay
+} from "date-fns";
+import { Op } from "sequelize";
 import Appointment from "../models/Appointment";
-import File from "../models/File";
+import User from "../models/User";
 
 class AppointmentController {
   async index(req, res) {
+    const page = req.query.page || 1;
+    const where = {};
+
+    if (req.query.date) {
+      const searchDate = parseISO(req.query.date);
+
+      where.date = {
+        [Op.between]: [startOfDay(searchDate), endOfDay(searchDate)]
+      };
+    }
+
     const appointments = await Appointment.findAll({
-      where: { user_id: req.userId, canceled_at: null },
+      where,
+      include: [User],
       order: ["date"],
-      attributes: ["id", "title", "description", "location", "date", "past"],
-      include: [
-        {
-          model: File,
-          as: "file",
-          attributes: ["id", "path", "url"]
-        }
-      ]
+      limit: 10,
+      offset: 10 * page - 10
     });
+
     return res.json(appointments);
   }
 
