@@ -9,6 +9,7 @@ import AppointmentController from "./app/controllers/AppointmentController";
 import SubscriptionController from "./app/controllers/SubscriptionController";
 
 import authMiddleware from "./app/middlewares/auth";
+import Subscription from "./app/models/Subscription";
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -27,6 +28,7 @@ routes.post("/appointments", AppointmentController.store);
 routes.put("/appointments/:id", AppointmentController.update);
 routes.delete("/appointments/:id", AppointmentController.delete);
 
+routes.get("/subscriptions", SubscriptionController.index);
 routes.post(
   "/appointments/:appointmentId/subscriptions",
   SubscriptionController.store
