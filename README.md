@@ -52,4 +52,4 @@
 <h3>Listagem de inscrições</h3>
 
 - [x] Crie uma rota para listar os meetups em que o usuário logado está inscrito.
-- [ ] Liste apenas meetups que ainda não passaram e ordene meetups mais próximos como primeiros da lista.
+- [x] Liste apenas meetups que ainda não passaram e ordene meetups mais próximos como primeiros da lista.
