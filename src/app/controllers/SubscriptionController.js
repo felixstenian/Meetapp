@@ -1,9 +1,32 @@
 import { Op } from "sequelize";
+
 import Subscription from "../models/Subscription";
 import Appointment from "../models/Appointment";
 import User from "../models/User";
 
 class SubscriptionController {
+  async index(req, res) {
+    const subscriptions = await Subscription.findAll({
+      where: {
+        user_id: req.userId
+      },
+      include: [
+        {
+          model: Appointment,
+          where: {
+            date: {
+              [Op.gte]: new Date()
+            }
+          },
+          required: true
+        }
+      ],
+      order: [[Appointment, "date"]]
+    });
+
+    return res.json(subscriptions);
+  }
+
   async store(req, res) {
     const user = await User.findByPk(req.userId);
     const appointment = await Appointment.findByPk(req.params.appointmentId, {
